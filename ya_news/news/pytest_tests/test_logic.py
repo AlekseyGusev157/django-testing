@@ -33,7 +33,7 @@ def test_anonymous_user_cant_create_note(client, form_data, news):
 def test_user_cant_use_bad_words(author_client, news, form_data):
     comments_count = Comment.objects.count()
     url = reverse('news:detail', args=(news.id,))
-    form_data['text'] = f'{BAD_WORDS[0]} текст'
+    form_data['text'] = f'{str(BAD_WORDS).split()} текст'
     response = author_client.post(url, data=form_data)
     assertFormError(
         response.context['form'], 'text',
